@@ -53,8 +53,7 @@ display_off()
     if [ $1 = "test" ] && grep -q display_off.cfg /opt/config/printer.cfg; then
         sync
         killall -9 firmwareExe
-        killall helix-watchdog helix-screen helix-splash
-        [ -f /run/rivet.pid ] && kill $(cat /run/rivet.pid) 2>/dev/null; killall rivet
+        killall helix-watchdog helix-screen helix-splash rivet-watchdog rivet
         sleep 1
         if grep -q "guppy = 1" /opt/config/mod_data/variables.cfg || grep -q "helix = 1" /opt/config/mod_data/variables.cfg || grep -q "rivet = 1" /opt/config/mod_data/variables.cfg; then
             /usr/data/zmod/zmod/.shell/zguppy.sh up
@@ -76,8 +75,7 @@ display_off()
         sed -i 's|\[include ./mod/mod.cfg\]|\[include ./mod/display_off.cfg\]|' /opt/config/printer.cfg
         sync
         killall -9 firmwareExe
-        killall guppyscreen console_log helix-watchdog helix-screen helix-splash
-        [ -f /run/rivet.pid ] && kill $(cat /run/rivet.pid) 2>/dev/null; killall rivet
+        killall guppyscreen console_log helix-watchdog helix-screen helix-splash rivet-watchdog rivet
 
         #[ -f /ZMOD ] && /usr/data/zmod/zmod/.shell/root/console_log --save --${ZLANG} || chroot ${MOD} /usr/data/zmod/zmod/.shell/root/console_log --save --${ZLANG}
 
